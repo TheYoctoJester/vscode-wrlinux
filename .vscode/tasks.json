@@ -14,23 +14,24 @@
             "OECORE_TARGET_SYSROOT": "${config:pokysdk.sdktargetsysroot}",
             "OECORE_ACLOCAL_OPTS": "-I ${config:pokysdk.sdkroot}/sysroots/${config:pokysdk.hosttriplet}/usr/share/aclocal",
             "OECORE_BASELIB": "lib",
-            "OECORE_TARGET_ARCH": "x86_64",
-            "OECORE_TARGET_OS": "linux",
-            "CC": "x86_64-poky-linux-gcc  -m64 -march=nehalem -mtune=generic -mfpmath=sse -msse4.2 -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=${config:pokysdk.sdktargetsysroot}",
-            "CXX": "x86_64-poky-linux-g++  -m64 -march=nehalem -mtune=generic -mfpmath=sse -msse4.2 -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=${config:pokysdk.sdktargetsysroot}",
-            "CPP": "x86_64-poky-linux-gcc -E  -m64 -march=nehalem -mtune=generic -mfpmath=sse -msse4.2 -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=${config:pokysdk.sdktargetsysroot}",
-            "AS": "x86_64-poky-linux-as  ",
-            "LD": "x86_64-poky-linux-ld   --sysroot=${config:pokysdk.sdktargetsysroot}",
-            "GDB": "x86_64-poky-linux-gdb",
-            "STRIP": "x86_64-poky-linux-strip",
-            "RANLIB": "x86_64-poky-linux-ranlib",
-            "OBJCOPY": "x86_64-poky-linux-objcopy",
-            "OBJDUMP": "x86_64-poky-linux-objdump",
-            "AR": "x86_64-poky-linux-ar",
-            "NM": "x86_64-poky-linux-nm",
+            "OECORE_TARGET_ARCH": "arm",
+            "OECORE_TARGET_OS": "linux-gnueabi",
+            "CC": "${config:pokysdk.targetarchtriplet}-gcc  -mthumb -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a15 -fstack-protector-strong  -O2 -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=${config:pokysdk.sdktargetsysroot}",
+            "CXX": "${config:pokysdk.targetarchtriplet}-g++  -mthumb -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a15 -fstack-protector-strong  -O2 -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=${config:pokysdk.sdktargetsysroot}",
+            "CPP": "${config:pokysdk.targetarchtriplet}-gcc -E  -mthumb -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a15 -fstack-protector-strong  -O2 -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=${config:pokysdk.sdktargetsysroot}",
+            "AS": "${config:pokysdk.targetarchtriplet}-as ",
+            "LD": "${config:pokysdk.targetarchtriplet}-ld  --sysroot=${config:pokysdk.sdktargetsysroot}",
+            "GDB": "${config:pokysdk.targetarchtriplet}-gdb",
+            "STRIP": "${config:pokysdk.targetarchtriplet}-strip",
+            "RANLIB": "${config:pokysdk.targetarchtriplet}-ranlib",
+            "OBJCOPY": "${config:pokysdk.targetarchtriplet}-objcopy",
+            "OBJDUMP": "${config:pokysdk.targetarchtriplet}-objdump",
+            "READELF": "${config:pokysdk.targetarchtriplet}-readelf",
+            "AR": "${config:pokysdk.targetarchtriplet}-ar",
+            "NM": "${config:pokysdk.targetarchtriplet}-nm",
             "M4": "m4",
-            "TARGET_PREFIX": "x86_64-poky-linux-",
-            "CONFIGURE_FLAGS": "--target=x86_64-poky-linux --host=x86_64-poky-linux --build=x86_64-linux --with-libtool-sysroot=${config:pokysdk.sdktargetsysroot}",
+            "TARGET_PREFIX": "${config:pokysdk.targetarchtriplet}-",
+            "CONFIGURE_FLAGS": "--target=${config:pokysdk.targetarchtriplet} --host=${config:pokysdk.targetarchtriplet} --build=x86_64-linux --with-libtool-sysroot=${config:pokysdk.sdktargetsysroot}",
             "CFLAGS": " -O2 -pipe -g -feliminate-unused-debug-types ",
             "CXXFLAGS": " -O2 -pipe -g -feliminate-unused-debug-types ",
             "LDFLAGS": "-Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -Wl,-z,relro,-z,now",
@@ -38,8 +39,8 @@
             "KCFLAGS": "--sysroot=${config:pokysdk.sdktargetsysroot}",
             "OECORE_DISTRO_VERSION": "${config:pokysdk.distroversion}",
             "OECORE_SDK_VERSION": "${pokysdk.sdkversion}",
-            "ARCH": "x86",
-            "CROSS_COMPILE": "x86_64-poky-linux-"
+            "ARCH": "arm",
+            "CROSS_COMPILE": "${config:pokysdk.targetarchtriplet}-"
         }
     },
     "tasks": [
@@ -57,7 +58,7 @@
             }
         },
         {
-            "label": "WRLinux SDK GCC C Compiler",
+            "label": "Poky qemuarm SDK GCC C Compiler",
             "type": "shell",
             "command": "$CC",
             "args": [
@@ -76,7 +77,7 @@
             }
         },
         {
-            "label": "WRLinux SDK Make",
+            "label": "Poky qemuarm SDK Make",
             "type": "shell",
             "command": "make",
             "args": [
@@ -91,7 +92,7 @@
             }
         },
         {
-            "label": "WRLinux SDK Make Target...",
+            "label": "Poky qemuarm SDK Make Target...",
             "type": "shell",
             "command": "make",
             "args": [
@@ -110,10 +111,11 @@
             "type": "shell",
             "windows": {
                 // Not tested
-                "command": "start -FilePath 'qemu-system-x86_64' -ArgumentList '-S -gdb tcp::1234 -boot d -cdrom wrlinux.iso -m 512'"
+                "command": "start -FilePath 'qemu-system-arm' -ArgumentList '-S -gdb tcp::1234 -boot d -cdrom wrlinux.iso -m 512'"
             },
             "linux": {
-                "command": "qemu-system-x86_64 -device virtio-net,netdev=net0 -netdev user,id=net0,hostfwd=tcp::1234-:1234 -m 512 -drive file=${config:pokysdk.sdkroot}/core-image-minimal-qemux86-64.ext4,if=virtio,format=raw -cpu kvm64 -enable-kvm -nographic -kernel ${config:pokysdk.sdkroot}/bzImage -append \"root=/dev/vda rw console=ttyS0 console=ttyS0 mem=512M ip=dhcp\""
+                "command": "qemu-system-arm -device virtio-net,netdev=net0 -netdev user,id=net0,hostfwd=tcp::1234-:1234 -m 512 -drive file=${config:pokysdk.sdkroot}/core-image-minimal-qemux86-64.ext4,if=virtio,format=raw -cpu kvm64 -enable-kvm -nographic -kernel ${config:pokysdk.sdkroot}/bzImage -append \"root=/dev/vda rw console=ttyS0 console=ttyS0 mem=512M ip=dhcp\""
+                //"commond": "qemu-system-arm -device virtio-net-device,netdev=net0,mac=52:54:00:12:35:02 -netdev user,id=net0,hostfwd=tcp::2222-:22,hostfwd=tcp::2323-:23 -object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0 -drive file=${config:pokysdk.sdkroot}/core-image-minimal-qemux86-64.ext4,if=none,format=raw -device virtio-blk-device,drive=disk0 -device qemu-xhci -device usb-tablet -device usb-kbd  -machine virt,highmem=off -cpu cortex-a15 -smp 4 -m 256 -serial mon:stdio -serial null -nographic -device VGA,edid=on -kernel /mnt/ephemeral/yplc/build/tmp/deploy/images/qemuarm/zImage--5.13.15+git0+c38435a3ca_482fd531f2-r0-qemuarm-20211018102402.bin -append 'root=/dev/vda rw  mem=256M ip=dhcp console=ttyAMA0 console=hvc0 vmalloc=256
             },
             "problemMatcher": []
         }

@@ -1,13 +1,13 @@
 {
     "env": {
         "NOTE": "This is a temporary workaround for vscode-cpptools issue 6037",
-        "distroversion": "3.2",
-        "sdkversion": "3.2",
-        "gccversion": "10.2.0",
+        "distroversion": "3.4",
+        "sdkversion": "3.4",
+        "gccversion": "11.2.0",
         "hosttriplet": "x86_64-pokysdk-linux",
-        "targettriplet": "core2-64-poky-linux",
-        "targetarchtriplet": "x86_64-poky-linux",
-        "sdkroot": "/home/ypsummit/pokysdk"
+        "targettriplet": "cortexa15t2hf-neon-poky-linux-gnueabi",
+        "targetarchtriplet": "arm-poky-linux-gnueabi",
+        "sdkroot": "/opt/poky/3.4"
     },
     "configurations": [
         {
