@@ -1,1 +1,1 @@
-image: theyoctojester/yocto-esdk:qemuarm
+image: gcr.io/yp-demonstrations/yocto-sdk:qemuarm
